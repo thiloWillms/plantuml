@@ -20,6 +20,12 @@ func (p *Package) Add(r ...Renderable) *Package {
 
 func (p *Package) Render(wr io.Writer) error {
 	w := strWriter{Writer: wr}
+
+	//name package "ER model" to use the correct settings
+	if p.name == "ER model" {
+		w.Print("skinparam linetype ortho \n")
+	}
+
 	w.Print("package \"")
 	w.Print(escapeP(p.name))
 	w.Print("\" {\n")

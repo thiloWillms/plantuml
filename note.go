@@ -12,8 +12,6 @@ type Note struct {
 }
 
 func NewNote(text string) *Note {
-
-
 	return &Note{text: text, id: "N" + nextId()}
 }
 

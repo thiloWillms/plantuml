@@ -90,3 +90,21 @@ func RenderLocal(fileType string, renderable Renderable) ([]byte, error) {
 
 	return cmd.Output()
 }
+
+func SplitDesc(desc string) []string {
+	var chunks []string
+	runes := []rune(desc)
+	split := 40
+
+	for i := 0; i < len(runes); i += split {
+		end := i + split
+		if end > len(runes) {
+			chunks = append(chunks, string(runes[i:]))
+		} else {
+			chunks = append(chunks, string(runes[i:end]))
+		}
+	}
+	return chunks
+}
+
+
