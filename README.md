@@ -1,6 +1,6 @@
 # plantuml
 
-Usage Example
+Usage Example Class Diagram 
 ```go
 package main
 
@@ -46,3 +46,53 @@ func main(){
 Results in an output like this
 
 <img src="example.svg">
+
+
+Usage Example ER Model
+```go
+package main
+
+import "fmt"
+import . "github.com/golangee/plantuml"
+func main(){
+	fmt.Println(String(NewDiagram().
+		Include(ThemeCerulean).
+		Add(NewPackage("ER model").
+			Add(NewEntity("Person", "E01").
+				AddAttrs(
+						Attribute{Name: "ID", DType: "int", Manda: true, Bold: true, Prime: true},
+						Attribute{Name: "Name", DType: "String", Manda: false, Bold: false, Prime: false},
+						Attribute{Name: "Age", DType: "int"},
+						Attribute{Name: "Phone number", DType: "int"},
+						)).
+			Add(NewEntity("Company", "E02").
+				AddAttrs(
+					Attribute{Name: "ID", DType: "int", Manda: true, Bold: true, Prime: true},
+					Attribute{Name: "Name", DType: "String"},
+					Attribute{Name: "Number employees", DType: "int"},
+					)).
+			Add(NewEntity("Address", "E03").
+				AddAttrs(
+					Attribute{Name: "ID", DType: "String", Manda: true, Bold: true, Prime: true},
+					Attribute{Name: "Country", DType: "String"},
+					Attribute{Name: "Street", DType: "String"},
+					Attribute{Name: "Number", DType: "int"},
+					)).Add(NewEntity("Family", "E04").
+						AddAttrs(
+							Attribute{Name: "Last name", DType: "String", Manda: true, Bold: true, Prime: true},
+							Attribute{Name: "Number children", DType: "int"},
+							)).
+			Add(NewConnectionList().
+				AddConns(
+					Connection{Start: "E01", Dest: "E02", FType: FOnMa, TType: TOnMa},
+					Connection{Start: "E01", Dest:  "E03", FType: FOnMa, TType: TOnMa},
+					Connection{Start: "E02", Dest:  "E03", FType: FOnMa, TType: TOnMa},
+					Connection{Start: "E01", Dest: "E04", FType: FZeOn, TType: TZeOn},
+					)))))
+}
+
+```
+
+Results in an output like this
+
+<img src="example_ermodel.png">
